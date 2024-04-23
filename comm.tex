@@ -1,0 +1,61 @@
+\newcommand{\pagewithnote}[5]{
+    \def\pdfname{#1}
+    \def\inspage{#2}
+    \def\notevar{#3}
+    \def\dlinkvar{#4}
+    \def\urlvar{#5}
+    \includepdf[
+        pages=\inspage,
+        width=210mm,
+        pagecommand={
+            \begin{tikzpicture}[remember picture, overlay]
+                \node[anchor=north east, inner sep=0pt, xshift=-5mm, yshift=-5mm] at (current page.north east) {%
+                    \begin{minipage}[t][295mm][t]{55mm}
+                        \parbox[t][295mm][t]{55mm}{
+                            \ifthenelse{\isempty{#3}}{}{
+                                \color{orange}
+                                \begin{itemize}
+                                    \foreach \s/\x/\y/\notecontent/\e [count=\idx] in \notevar {
+                                        \item[\emoji{thinking-face}] \hypertarget{page\inspage-item\idx}{\texttt{\notecontent}}
+                                    }
+                                \end{itemize}
+                            }
+                        }
+                    \end{minipage}
+                };
+                \ifthenelse{\isempty{#3}}{}{
+                    \foreach \s/\x/\y/\notecontent/\e [count=\idx] in \notevar {
+                        \node[anchor=north west, inner sep=0pt] at ([xshift=\x mm, yshift=-\y mm] current page.north west){
+                            \hyperlink{page\inspage-item\idx}{\emoji{thinking-face}}
+                        };
+                    }
+                }
+                \ifthenelse{\isempty{#4}}{}{
+                    \foreach \s/\x/\y/\dlinkname/\dlinkside/\e in \dlinkvar {
+                        \node[anchor=north west, inner sep=0pt] at ([xshift=\x mm, yshift=-\y mm] current page.north west){
+                            \parbox[t][5mm][t]{5mm}{
+                                \hypertarget{\dlinkname-\dlinkside}{}
+                                \ifthenelse{\equal{\dlinkside}{B}}{
+                                    \hyperlink{\dlinkname-A}{\emoji{waving-hand}}
+                                }{
+                                    \hyperlink{\dlinkname-B}{\emoji{waving-hand}}
+                                }
+                            }
+                        };
+                    }
+                }
+                \ifthenelse{\isempty{#5}}{}{
+                    \foreach \s/\x/\y/\urlcontent/\e in \urlvar {
+                        \node[anchor=north west, inner sep=0pt] at ([xshift=\x mm, yshift=-\y mm] current page.north west){
+                            \parbox[t][5mm][t]{5mm}{
+                                \href{\urlcontent}{\emoji{link}}
+                            }
+                        };
+                    }
+                }
+                \node[anchor=south east, inner sep=0pt] at ([xshift=-5mm, yshift=5mm] current page.south east){-\inspage-};
+            \end{tikzpicture}
+        },
+        offset=-20mm -0mm
+    ]{\pdfname}
+}
