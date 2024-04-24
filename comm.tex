@@ -14,11 +14,13 @@
                         \parbox[t][295mm][t]{55mm}{
                             \ifthenelse{\isempty{#3}}{}{
                                 \color{orange}
-                                \begin{itemize}
-                                    \foreach \s/\x/\y/\notecontent/\e [count=\idx] in \notevar {
-                                        \item[\emoji{thinking-face}] \hypertarget{page\inspage-item\idx}{\texttt{\notecontent}}
-                                    }
-                                \end{itemize}
+                                \begin{spacing}{1.07}
+                                    \begin{itemize}
+                                        \foreach \s/\x/\y/\notecontent/\e [count=\idx] in \notevar {
+                                            \item[\emoji{thinking-face}] \hypertarget{page\inspage-item\idx}{\texttt{\notecontent}}
+                                        }
+                                    \end{itemize}
+                                \end{spacing}
                             }
                         }
                     \end{minipage}

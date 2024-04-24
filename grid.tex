@@ -1,13 +1,19 @@
 \AddToShipoutPictureBG{%
     \begin{tikzpicture}[overlay,remember picture]
         \foreach \x in {10,20,...,250} {
-            \draw[anchor=north west, gray, opacity=0.1] (\x mm,0) -- (\x mm, \paperheight);
+            \draw[anchor=north west, gray, opacity=0.1] (\x mm,0) -- (\x mm, 300mm);
             \node[anchor=north west, gray, opacity=0.3, inner sep=2pt] at ([xshift=\x mm, yshift=0] current page.north west){\x};
             \node[anchor=south west, gray, opacity=0.3, inner sep=2pt] at ([xshift=\x mm, yshift=0] current page.south west){\x};
         }
+        \foreach \x in {15,25,...,235} {
+            \draw[anchor=north west, gray, opacity=0.1] (\x mm,10mm) -- (\x mm, 290mm);
+        }
         \foreach \y in {10,20,...,300} {
-            \draw[anchor=north west, gray, opacity=0.1] (0,\y mm) -- (210mm,\y mm);
+            \draw[anchor=north west, gray, opacity=0.1] (0,\y mm) -- (250mm,\y mm);
             \node[anchor=north west, gray, opacity=0.3, inner sep=2pt] at ([xshift=0, yshift=-\y mm] current page.north west){\y};
+        }
+        \foreach \y in {15,25,...,285} {
+            \draw[anchor=north west, gray, opacity=0.1] (10mm,\y mm) -- (240mm,\y mm);
         }
     \end{tikzpicture}%
 }
